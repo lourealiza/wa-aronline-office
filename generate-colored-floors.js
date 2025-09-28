@@ -4,31 +4,31 @@ import fs from 'fs';
 const mapFile = 'wa_map-ar-online-professional.tmj';
 const mapData = JSON.parse(fs.readFileSync(mapFile, 'utf8'));
 
-// Definir cores para cada divisão (usando tiles do tileset_colors_walls)
+// Definir cores para cada divisão (usando tiles de chão do WA_Room_Builder)
 const floorColors = {
   // Lobby Central (centro do mapa)
-  lobby: 1001, // Azul claro
+  lobby: 1, // Chão padrão
   
   // Desenvolvimento (canto superior esquerdo)
-  dev: 1002, // Verde
+  dev: 2, // Chão verde
   
   // QA & DevOps (canto superior direito)
-  qa: 1003, // Amarelo
+  qa: 3, // Chão amarelo
   
   // Marketing & Design (canto inferior esquerdo)
-  marketing: 1004, // Rosa
+  marketing: 4, // Chão rosa
   
   // RH & Financeiro (canto inferior direito)
-  hr: 1005, // Roxo
+  hr: 5, // Chão roxo
   
   // Vendas & Suporte (lateral esquerda)
-  sales: 1006, // Laranja
+  sales: 6, // Chão laranja
   
   // Salas de Reunião (lateral direita)
-  meeting: 1007, // Cinza
+  meeting: 7, // Chão cinza
   
   // Auditório & Treinamento (centro inferior)
-  auditorium: 1008, // Azul escuro
+  auditorium: 8, // Chão azul
 };
 
 // Função para definir cores baseadas na posição
