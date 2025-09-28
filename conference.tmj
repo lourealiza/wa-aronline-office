@@ -564,7 +564,7 @@
         {
          "columns":25,
          "firstgid":375,
-         "image":"tilesets\/WA_Room_Builder.png",
+         "image":"https://lourealiza.github.io/wa-aronline-office/WA_Room_Builder.png",
          "imageheight":1280,
          "imagewidth":800,
          "margin":0,
