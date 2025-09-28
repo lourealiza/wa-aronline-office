@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
-    <meta name="title" content="WorkAdventure Starter Kit">
-    <title>WorkAdventure test map</title>
-    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+    <meta name="title" content="AR Online Virtual Office - WorkAdventure Map">
+    <title>AR Online Virtual Office - Escritório Virtual</title>
+    <link rel="icon" href="./images/favicon.svg" type="image/svg+xml">
     <script>
         window.onload = function () {
             const host = window.location.host;
@@ -16,17 +16,80 @@
             if (path.endsWith('index.html')) {
                 path = path.substr(path, path.length - 'index.html'.length);
             }
-            const instanceId = Math.random().toString(36).substring(2, 15);
-            const url = `https://play.workadventu.re/_/${instanceId}/${host}${path}office.tmj`;
-            document.getElementById('testMapURL').href = url;
-            document.getElementById('testMapBtnURL').href = url;
-            document.getElementById('testMapURL').innerText = url;
+            // Fixed map file (override disabled for now)
+            const mapFile = 'wa_map-interativo.tmj';
 
-            const tmjURL = window.location.protocol + '//' + window.location.host + path + 'office.tmj';
+            const instanceId = Math.random().toString(36).substring(2, 15);
+            const url = `https://play.workadventu.re/_/${instanceId}/${host}${path}${mapFile}`;
+
+            const tmjURL = window.location.protocol + '//' + window.location.host + path + mapFile;
             document.getElementById('tmjURL').innerText = tmjURL;
 
             const gettingStartedLink = 'https://workadventu.re/getting-started?name=Map&mapUrl=' + tmjURL;
             document.getElementById('gettingStartedLink').href = gettingStartedLink;
+
+            // GitHub Pages links (direct file and WA global)
+            // GitHub Pages (arquivo na raiz do site)
+            const ghBase = 'https://lourealiza.github.io/wa-aronline-office/';
+            const ghMapURL = ghBase + mapFile;
+            const waGlobalURL = 'https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-interativo.tmj';
+            const ghMapEl = document.getElementById('ghMapURL');
+            const waGlobalEl = document.getElementById('ghWAGlobalURL');
+            if (ghMapEl) {
+                ghMapEl.href = ghMapURL;
+                ghMapEl.innerText = ghMapURL;
+            }
+            if (waGlobalEl) {
+                waGlobalEl.href = waGlobalURL;
+                waGlobalEl.innerText = waGlobalURL;
+            }
+
+            // Links adicionais: mapa Office gerado (em public/office_generated)
+            const officeRel = 'public/office_generated/work_adventure_map_from_image.json';
+            const ghOfficeURL = ghBase + officeRel;
+            const waGlobalOfficeURL = 'https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-hub/public/office_generated/work_adventure_map_from_image.json';
+            const ghOfficeEl = document.getElementById('ghOfficeURL');
+            const ghOfficeWAEl = document.getElementById('ghOfficeWAGlobalURL');
+            if (ghOfficeEl) {
+                ghOfficeEl.href = ghOfficeURL;
+                ghOfficeEl.innerText = ghOfficeURL;
+            }
+            if (ghOfficeWAEl) {
+                ghOfficeWAEl.href = waGlobalOfficeURL;
+                ghOfficeWAEl.innerText = waGlobalOfficeURL;
+            }
+
+            // Mapa Office gerado via script (ar_office_layout.tmj)
+            const officeGenRel = 'public/office_generated/ar_office_layout.tmj';
+            const ghOfficeGenURL = ghBase + officeGenRel;
+            const waGlobalOfficeGenURL = 'https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-hub/public/office_generated/ar_office_layout.tmj';
+            const ghOfficeGenEl = document.getElementById('ghOfficeGenURL');
+            const ghOfficeGenWAEl = document.getElementById('ghOfficeGenWAGlobalURL');
+            if (ghOfficeGenEl) {
+                ghOfficeGenEl.href = ghOfficeGenURL;
+                ghOfficeGenEl.innerText = ghOfficeGenURL;
+            }
+            if (ghOfficeGenWAEl) {
+                ghOfficeGenWAEl.href = waGlobalOfficeGenURL;
+                ghOfficeGenWAEl.innerText = waGlobalOfficeGenURL;
+            }
+
+            // Botão e link principal: usar WorkAdventure Global
+            const testMapLinkEl = document.getElementById('testMapURL');
+            const testMapBtnEl = document.getElementById('testMapBtnURL');
+            
+            // Garantir que os links sejam definidos corretamente
+            const finalURL = 'https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-interativo.tmj';
+            
+            if (testMapLinkEl) {
+                testMapLinkEl.href = finalURL;
+                testMapLinkEl.innerText = finalURL;
+                testMapLinkEl.target = '_blank';
+            }
+            if (testMapBtnEl) {
+                testMapBtnEl.href = finalURL;
+                testMapBtnEl.target = '_blank';
+            }
 
         };
     </script>
@@ -142,17 +205,47 @@
         <header>
             <div class="logo">
                 <a href="https://workadventu.re/" target="_blank" title="Workadventure">
-                    <img src="/images/logo.svg" alt="WorkAdventure logo" />
+                    <img src="./images/logo.svg" alt="WorkAdventure logo" />
                 </a>
             </div>
         </header>
         <main>
             <section>
-                <h2>Test my map</h2>
-                <p><a id="testMapURL" href="#" class="url"></a></p>
-                <p class="tips">(In order to test another map, locate "office.tmj" at the end of the URL and replace it by another file name)</p>
-                <img src="/office.png" alt="Map thumbnail" class="map">
-                <p><a id="testMapBtnURL" href="#" class="button">Test my map</a></p>
+                <h2>Testar o Mapa do AR Online Virtual Office</h2>
+                <p><a id="testMapURL" href="https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-working.tmj" class="url" target="_blank">https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-working.tmj</a></p>
+                <p class="tips">(Mapa funcional com 2 salas: Lobby e CEO)</p>
+                <img src="./office.png" alt="Map thumbnail" class="map">
+                <p><a id="testMapBtnURL" href="https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-working.tmj" class="button" target="_blank">✅ Mapa AR Online Virtual Office</a></p>
+                <p><a href="https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-ar-online-professional.tmj" class="button" target="_blank" style="background-color: #8B0000;">🏢 Mapa Profissional Virtual Office (24x20)</a></p>
+                <p><a href="https://play.workadventu.re/_/global/lourealiza.github.io/wa-aronline-office/wa_map-complexo.tmj" class="button" target="_blank" style="background-color: #2c3e50;">🏛️ Mapa Complexo com Hub Octogonal</a></p>
+                <p><a href="editor.html" class="button" target="_blank" style="background-color: #27ae60;">🎨 Editor de Mapas</a></p>
+                <p><a href="admin-auth.html" class="button" target="_blank" style="background-color: #9b59b6;">🔧 Editor Administrativo</a></p>
+                <div style="margin: 20px 0; padding: 15px; background-color: #f0f8ff; border-radius: 8px; text-align: left;">
+                    <h3 style="margin-top: 0; color: #1E3A8A;">🏢 Layout do Virtual Office</h3>
+                    <p><strong>Salas Disponíveis:</strong></p>
+                    <ul style="columns: 2; column-gap: 20px; margin: 10px 0;">
+                        <li>Lobby Central</li>
+                        <li>Desenvolvimento</li>
+                        <li>QA & DevOps</li>
+                        <li>Marketing & Design</li>
+                        <li>RH & Financeiro</li>
+                        <li>Vendas & Suporte</li>
+                        <li>Salas de Reunião A & B</li>
+                        <li>Auditório & Treinamento</li>
+                    </ul>
+                    <p style="margin-bottom: 0; font-size: 0.9em; color: #666;">
+                        ✨ Cada sala tem interações específicas e mensagens informativas!
+                    </p>
+                </div>
+                <p>GitHub Pages (mapa direto):<br><a id="ghMapURL" href="#" class="url"></a></p>
+                <p>WorkAdventure (global):<br><a id="ghWAGlobalURL" href="#" class="url"></a></p>
+                <hr>
+                <h3>Mapa Office (Gerado)</h3>
+                <p>GitHub Pages (mapa direto):<br><a id="ghOfficeURL" href="#" class="url"></a></p>
+                <p>WorkAdventure (global):<br><a id="ghOfficeWAGlobalURL" href="#" class="url"></a></p>
+                <h3>Mapa Office (Gerado via Script)</h3>
+                <p>GitHub Pages (mapa direto):<br><a id="ghOfficeGenURL" href="#" class="url"></a></p>
+                <p>WorkAdventure (global):<br><a id="ghOfficeGenWAGlobalURL" href="#" class="url"></a></p>
             </section>
 
             <section>
@@ -167,22 +260,22 @@
                 <div>
                     <div class="socials">
                         <a href="https://discord.gg/G6Xh9ZM9aR" target="_blank" title="discord">
-                            <img src="/images/discord.png" alt="discord">
+                            <img src="./images/discord.png" alt="discord">
                         </a>
                         <a href="https://github.com/thecodingmachine/workadventure" target="_blank" title="github">
-                            <img src="/images/github.png" alt="github">
+                            <img src="./images/github.png" alt="github">
                         </a>
                         <a href="https://www.youtube.com/channel/UCXJ9igV-kb9gw1ftR33y5tA" target="_blank" title="youtube">
-                            <img src="/images/youtube.png" alt="youtube">
+                            <img src="./images/youtube.png" alt="youtube">
                         </a>
                         <a href="https://twitter.com/Workadventure_" target="_blank" title="twitter">
-                            <img src="/images/twitter.png" alt="twitter">
+                            <img src="./images/twitter.png" alt="twitter">
                         </a>
                         <a href="https://www.instagram.com/workadventure_" target="_blank" title="instagram">
-                            <img src="/images/instagram.png" alt="instagram">
+                            <img src="./images/instagram.png" alt="instagram">
                         </a>
                         <a href="https://www.linkedin.com/company/workadventu-re" target="_blank" title="linkedin">
-                            <img src="/images/linkedin.png" alt="linkedin">
+                            <img src="./images/linkedin.png" alt="linkedin">
                         </a>
                     </div>
 
