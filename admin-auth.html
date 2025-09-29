@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Editor Administrativo - AR Online Virtual Office</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .auth-form {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+
+        .admin-panel {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .admin-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .admin-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .admin-card {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #bbdefb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #2196f3;
+        }
+
+        .admin-card h4 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .admin-card p {
+            color: #424242;
+            font-size: 14px;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .info-section {
+            background: #fff3e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .info-section h4 {
+            color: #f57c00;
+            margin-bottom: 15px;
+        }
+
+        .info-section ul {
+            color: #424242;
+            line-height: 1.8;
+        }
+
+        .info-section li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Voltar</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Editor Administrativo</h1>
+            <p>Acesso restrito para administradores do sistema</p>
+        </div>
+
+        <div id="loginForm">
+            <div class="auth-form">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">🔐 Autenticação</h3>
+                
+                <div class="form-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" placeholder="Digite seu usuário" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" placeholder="Digite sua senha" required>
+                </div>
+
+                <button class="btn" onclick="authenticate()">Entrar</button>
+                
+                <div id="errorMessage" class="error-message"></div>
+            </div>
+        </div>
+
+        <div id="adminPanel" class="admin-panel">
+            <h3>🛠️ Painel Administrativo</h3>
+            <p>Bem-vindo, <span id="adminName"></span>!</p>
+            
+            <div class="admin-options">
+                <div class="admin-card" onclick="manageMaps()">
+                    <h4>🗺️ Gerenciar Mapas</h4>
+                    <p>Editar, criar e configurar mapas do sistema</p>
+                </div>
+
+                <div class="admin-card" onclick="manageUsers()">
+                    <h4>👥 Gerenciar Usuários</h4>
+                    <p>Controlar acesso e permissões dos usuários</p>
+                </div>
+
+                <div class="admin-card" onclick="manageAssets()">
+                    <h4>🎨 Gerenciar Assets</h4>
+                    <p>Upload e organização de tilesets e imagens</p>
+                </div>
+
+                <div class="admin-card" onclick="viewLogs()">
+                    <h4>📊 Visualizar Logs</h4>
+                    <p>Monitorar atividade e erros do sistema</p>
+                </div>
+
+                <div class="admin-card" onclick="systemSettings()">
+                    <h4>⚙️ Configurações</h4>
+                    <p>Configurações gerais do sistema</p>
+                </div>
+
+                <div class="admin-card" onclick="backupSystem()">
+                    <h4>💾 Backup</h4>
+                    <p>Fazer backup e restaurar dados</p>
+                </div>
+            </div>
+
+            <button class="btn" onclick="logout()" style="background: #e74c3c; margin-top: 20px;">Sair</button>
+        </div>
+
+        <div class="info-section">
+            <h4>🔒 Informações de Segurança:</h4>
+            <ul>
+                <li><strong>Acesso Restrito:</strong> Apenas administradores autorizados</li>
+                <li><strong>Credenciais:</strong> Entre em contato com o administrador do sistema</li>
+                <li><strong>Logs:</strong> Todas as ações são registradas para auditoria</li>
+                <li><strong>Backup:</strong> Faça backup regular dos dados importantes</li>
+                <li><strong>Suporte:</strong> Para problemas técnicos, contate a equipe de TI</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Credenciais de exemplo (em produção, usar autenticação real)
+        const validCredentials = {
+            'admin': 'admin123',
+            'lourealiza': 'admin2024',
+            'root': 'password123'
+        };
+
+        function authenticate() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('errorMessage');
+
+            if (validCredentials[username] && validCredentials[username] === password) {
+                // Login bem-sucedido
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminName').textContent = username;
+                showSuccess('Login realizado com sucesso!');
+            } else {
+                // Login falhou
+                errorDiv.textContent = 'Usuário ou senha incorretos!';
+                errorDiv.style.display = 'block';
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function manageMaps() {
+            showSuccess('Redirecionando para gerenciamento de mapas...');
+            setTimeout(() => {
+                window.open('editor.html', '_blank');
+            }, 1000);
+        }
+
+        function manageUsers() {
+            showSuccess('Funcionalidade de gerenciamento de usuários em desenvolvimento...');
+        }
+
+        function manageAssets() {
+            showSuccess('Funcionalidade de gerenciamento de assets em desenvolvimento...');
+        }
+
+        function viewLogs() {
+            showSuccess('Funcionalidade de visualização de logs em desenvolvimento...');
+        }
+
+        function systemSettings() {
+            showSuccess('Funcionalidade de configurações do sistema em desenvolvimento...');
+        }
+
+        function backupSystem() {
+            showSuccess('Funcionalidade de backup em desenvolvimento...');
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+            
+            const container = document.querySelector('.container');
+            container.insertBefore(successDiv, container.firstChild);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // Permitir login com Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                authenticate();
+            }
+        });
+
+        // Efeitos visuais
+        document.querySelectorAll('.admin-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

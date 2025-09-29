@@ -8,6 +8,8 @@ const __dirname = path.dirname(__filename);
 // Arquivos essenciais para GitHub Pages
 const essentialFiles = [
   'index.html',
+  'editor.html',
+  'admin-auth.html',
   'wa_map-complexo.tmj',
   'wa_map-ar-online-professional.tmj', 
   'wa_map-interativo.tmj',
