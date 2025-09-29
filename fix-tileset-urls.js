@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const baseUrl = 'https://lourealiza.github.io/wa-aronline-office/';
+const baseUrl = ''; // Usar caminhos relativos para build
 const mapFiles = [
   'wa_map-ar-online-professional.tmj',
   'wa_map-interativo.tmj', 
