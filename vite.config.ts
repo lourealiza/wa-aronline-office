@@ -8,7 +8,8 @@ let optimizerOptions: OptimizeOptions = {
     logs: process.env.LOG_LEVEL && process.env.LOG_LEVEL in LogLevel ? LogLevel[process.env.LOG_LEVEL] : LogLevel.NORMAL,
 };
 
-if (process.env.TILESET_OPTIMIZATION && process.env.TILESET_OPTIMIZATION === "true") {
+// Desabilitar otimização de tilesets temporariamente para resolver problema de build
+if (false && process.env.TILESET_OPTIMIZATION && process.env.TILESET_OPTIMIZATION === "true") {
     const qualityMin = process.env.TILESET_OPTIMIZATION_QUALITY_MIN ? parseInt(process.env.TILESET_OPTIMIZATION_QUALITY_MIN) : 0.9;
     const qualityMax = process.env.TILESET_OPTIMIZATION_QUALITY_MAX ? parseInt(process.env.TILESET_OPTIMIZATION_QUALITY_MAX) : 1;
 
