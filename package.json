@@ -15,7 +15,8 @@
     "prepare-deploy": "node fix-for-deploy.js",
     "revert-deploy": "node revert-from-deploy.js",
     "organize-tilesets": "node move-tilesets-to-folder.js",
-    "deploy": "npm run prepare-deploy && npm run build && npm run revert-deploy"
+    "verify-deploy": "node verify-deploy.js",
+    "deploy": "npm run prepare-deploy && npm run build && npm run verify-deploy && npm run revert-deploy"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
