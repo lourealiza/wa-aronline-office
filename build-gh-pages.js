@@ -14,8 +14,9 @@ const essentialFiles = [
   'wa_map-ar-online-professional.tmj', 
   'wa_map-interativo.tmj',
   'wa_map-working.tmj',
-  'WA_Room_Builder.png',
-  'tileset_colors_walls.png',
+  'wa_map-complexo-v2.tmj',
+  'office.tmj',
+  'conference.tmj',
   'office.png',
   'conference.png'
 ];
@@ -40,22 +41,22 @@ essentialFiles.forEach(file => {
   }
 });
 
-// Copiar pasta public
+// Copiar pasta public (inclui tilesets dentro de public/)
 console.log('📁 Copiando pasta public/...');
 if (fs.existsSync('public')) {
   copyDirectory('public', 'dist/public');
 }
 
-// Copiar pasta tilesets
-console.log('📁 Copiando pasta tilesets/...');
+// Copiar pasta tilesets da raiz também (para garantir)
+console.log('📁 Copiando pasta tilesets/ da raiz...');
 if (fs.existsSync('tilesets')) {
   copyDirectory('tilesets', 'dist/tilesets');
 }
 
-// Copiar pasta images
-console.log('📁 Copiando pasta images/...');
-if (fs.existsSync('public/images')) {
-  copyDirectory('public/images', 'dist/images');
+// IMPORTANTE: Copiar tilesets também na raiz do dist para caminhos relativos funcionarem
+console.log('📁 Copiando tilesets para raiz do dist/...');
+if (fs.existsSync('public/tilesets')) {
+  copyDirectory('public/tilesets', 'dist/tilesets');
 }
 
 function copyDirectory(source, dest) {
