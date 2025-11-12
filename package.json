@@ -9,7 +9,13 @@
     "build": "tsc && vite build && node build-gh-pages.js",
     "prod": "vite preview",
     "upload": "npm run build && upload-wa-map",
-    "upload-only": "upload-wa-map"
+    "upload-only": "upload-wa-map",
+    "check-maps": "node check-maps.js",
+    "fix-tilesets": "node fix-all-tilesets.js",
+    "prepare-deploy": "node fix-for-deploy.js",
+    "revert-deploy": "node revert-from-deploy.js",
+    "organize-tilesets": "node move-tilesets-to-folder.js",
+    "deploy": "npm run prepare-deploy && npm run build && npm run revert-deploy"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

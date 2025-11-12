@@ -11,8 +11,8 @@ const mapFiles = [
 ];
 
 const tilesets = [
-  'WA_Room_Builder.png',
-  'tileset_colors_walls.png'
+  'tilesets/WA_Room_Builder.png',
+  'tilesets/tileset_colors_walls.png'
 ];
 
 // Verificar se os tilesets existem
