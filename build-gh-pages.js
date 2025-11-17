@@ -47,16 +47,20 @@ if (fs.existsSync('public')) {
   copyDirectory('public', 'dist/public');
 }
 
-// Copiar pasta tilesets da raiz também (para garantir)
+// Copiar pasta tilesets da raiz (PRIORITÁRIO - caminho usado pelos mapas)
 console.log('📁 Copiando pasta tilesets/ da raiz...');
 if (fs.existsSync('tilesets')) {
   copyDirectory('tilesets', 'dist/tilesets');
+  console.log('✅ Tilesets copiados da raiz para dist/tilesets/');
+} else {
+  console.log('⚠️  Pasta tilesets/ não encontrada na raiz!');
 }
 
-// IMPORTANTE: Copiar tilesets também na raiz do dist para caminhos relativos funcionarem
-console.log('📁 Copiando tilesets para raiz do dist/...');
+// Copiar tilesets de public/tilesets/ também (se existir - backup)
 if (fs.existsSync('public/tilesets')) {
+  console.log('📁 Copiando tilesets de public/tilesets/ (backup)...');
   copyDirectory('public/tilesets', 'dist/tilesets');
+  console.log('✅ Tilesets copiados de public/tilesets/ para dist/tilesets/');
 }
 
 function copyDirectory(source, dest) {
