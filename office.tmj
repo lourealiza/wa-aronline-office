@@ -7543,7 +7543,7 @@
     {
       "columns": 6,
       "firstgid": 1,
-      "image": "tilesets/WA_Special_Zones.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Special_Zones.png",
       "imageheight": 64,
       "imagewidth": 192,
       "margin": 0,
@@ -7568,7 +7568,7 @@
     {
       "columns": 12,
       "firstgid": 13,
-      "image": "tilesets/WA_Decoration.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Decoration.png",
       "imageheight": 256,
       "imagewidth": 384,
       "margin": 0,
@@ -7581,7 +7581,7 @@
     {
       "columns": 10,
       "firstgid": 109,
-      "image": "tilesets/WA_Miscellaneous.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Miscellaneous.png",
       "imageheight": 352,
       "imagewidth": 320,
       "margin": 0,
@@ -7594,7 +7594,7 @@
     {
       "columns": 12,
       "firstgid": 219,
-      "image": "tilesets/WA_Other_Furniture.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Other_Furniture.png",
       "imageheight": 416,
       "imagewidth": 384,
       "margin": 0,
@@ -7607,7 +7607,7 @@
     {
       "columns": 25,
       "firstgid": 375,
-      "image": "tilesets/WA_Room_Builder.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Room_Builder.png",
       "imageheight": 1280,
       "imagewidth": 800,
       "margin": 0,
@@ -7620,7 +7620,7 @@
     {
       "columns": 13,
       "firstgid": 1375,
-      "image": "tilesets/WA_Seats.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Seats.png",
       "imageheight": 448,
       "imagewidth": 416,
       "margin": 0,
@@ -7633,7 +7633,7 @@
     {
       "columns": 10,
       "firstgid": 1557,
-      "image": "tilesets/WA_Tables.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Tables.png",
       "imageheight": 864,
       "imagewidth": 320,
       "margin": 0,
@@ -7646,7 +7646,7 @@
     {
       "columns": 6,
       "firstgid": 1827,
-      "image": "tilesets/WA_Logo_Long.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Logo_Long.png",
       "imageheight": 32,
       "imagewidth": 192,
       "margin": 0,
@@ -7659,7 +7659,7 @@
     {
       "columns": 25,
       "firstgid": 1833,
-      "image": "tilesets/WA_Exterior.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_Exterior.png",
       "imageheight": 1088,
       "imagewidth": 800,
       "margin": 0,
@@ -7672,7 +7672,7 @@
     {
       "columns": 13,
       "firstgid": 2683,
-      "image": "tilesets/WA_User_Interface.png",
+      "image": "https://lourealiza.github.io/wa-aronline-office/tilesets/WA_User_Interface.png",
       "imageheight": 672,
       "imagewidth": 416,
       "margin": 0,
