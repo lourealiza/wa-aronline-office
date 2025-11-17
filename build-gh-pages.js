@@ -77,4 +77,37 @@ function copyDirectory(source, dest) {
   });
 }
 
+// Converter URLs relativas para absolutas nos arquivos .tmj do dist/
+console.log('🔄 Convertendo caminhos relativos para URLs absolutas no dist/...');
+const baseUrl = 'https://lourealiza.github.io/wa-aronline-office/';
+
+essentialFiles.forEach(file => {
+  if (file.endsWith('.tmj')) {
+    const distPath = path.join(__dirname, 'dist', file);
+    if (fs.existsSync(distPath)) {
+      try {
+        const content = fs.readFileSync(distPath, 'utf8');
+        const mapData = JSON.parse(content);
+        let updated = false;
+        
+        if (mapData.tilesets && Array.isArray(mapData.tilesets)) {
+          mapData.tilesets.forEach(tileset => {
+            if (tileset.image && !tileset.image.startsWith('http://') && !tileset.image.startsWith('https://')) {
+              tileset.image = baseUrl + tileset.image;
+              updated = true;
+            }
+          });
+        }
+        
+        if (updated) {
+          fs.writeFileSync(distPath, JSON.stringify(mapData, null, 2));
+          console.log(`✅ URLs convertidas em: ${file}`);
+        }
+      } catch (error) {
+        console.log(`⚠️  Erro ao processar ${file}: ${error.message}`);
+      }
+    }
+  }
+});
+
 console.log('✅ Build para GitHub Pages concluído!');
