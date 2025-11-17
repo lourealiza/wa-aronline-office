@@ -1,10 +1,15 @@
-name: Build and deploy
+# DISABLED - This workflow is disabled to avoid conflicts with static.yml
+# Use static.yml instead which handles build and deploy correctly
+name: Build and deploy (DISABLED)
 
+# Disabled - no triggers
+# on:
+#   push:
+#     branches:
+#       - master
+#   workflow_dispatch: # allow manual execution
 on:
-  push:
-    branches:
-      - master
-  workflow_dispatch: # allow manual execution
+  workflow_dispatch: # Only allow manual execution, effectively disabled
 
 permissions:
   contents: write
