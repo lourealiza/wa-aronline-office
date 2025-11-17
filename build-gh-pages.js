@@ -21,9 +21,14 @@ const essentialFiles = [
   'conference.png'
 ];
 
-// Copiar arquivos essenciais
+// Copiar arquivos essenciais (mapas serão processados depois)
 console.log('📁 Copiando arquivos essenciais...');
 essentialFiles.forEach(file => {
+  // Pular arquivos .tmj aqui - eles serão processados depois com conversão de URLs
+  if (file.endsWith('.tmj')) {
+    return;
+  }
+  
   const sourcePath = path.join(__dirname, file);
   const destPath = path.join(__dirname, 'dist', file);
   
@@ -81,35 +86,68 @@ function copyDirectory(source, dest) {
   });
 }
 
-// Converter URLs relativas para absolutas nos arquivos .tmj do dist/
-console.log('🔄 Convertendo caminhos relativos para URLs absolutas no dist/...');
+// Processar arquivos .tmj: copiar e converter URLs relativas para absolutas
+console.log('🔄 Processando arquivos .tmj (copiar e converter URLs)...');
 const baseUrl = 'https://lourealiza.github.io/wa-aronline-office/';
 
 essentialFiles.forEach(file => {
   if (file.endsWith('.tmj')) {
+    const sourcePath = path.join(__dirname, file);
     const distPath = path.join(__dirname, 'dist', file);
-    if (fs.existsSync(distPath)) {
+    
+    if (fs.existsSync(sourcePath)) {
       try {
-        const content = fs.readFileSync(distPath, 'utf8');
+        // Ler arquivo fonte (deve ter URLs relativas)
+        const content = fs.readFileSync(sourcePath, 'utf8');
         const mapData = JSON.parse(content);
         let updated = false;
         
         if (mapData.tilesets && Array.isArray(mapData.tilesets)) {
           mapData.tilesets.forEach(tileset => {
-            if (tileset.image && !tileset.image.startsWith('http://') && !tileset.image.startsWith('https://')) {
-              tileset.image = baseUrl + tileset.image;
-              updated = true;
+            if (tileset.image) {
+              // Se já é URL absoluta, remover baseUrl duplicada se existir
+              if (tileset.image.startsWith('http://') || tileset.image.startsWith('https://')) {
+                // Verificar se há duplicação da baseUrl
+                const doubleBaseUrl = baseUrl + baseUrl;
+                if (tileset.image.startsWith(doubleBaseUrl)) {
+                  tileset.image = tileset.image.replace(doubleBaseUrl, baseUrl);
+                  updated = true;
+                  console.log(`   🔧 Corrigida URL duplicada em ${tileset.name}`);
+                } else if (tileset.image.startsWith(baseUrl)) {
+                  // Já está correto, não fazer nada
+                  console.log(`   ℹ️  URL já é absoluta em ${tileset.name}`);
+                } else {
+                  // URL absoluta de outro domínio, manter como está
+                  console.log(`   ℹ️  URL absoluta externa em ${tileset.name}`);
+                }
+              } else {
+                // URL relativa - converter para absoluta
+                tileset.image = baseUrl + tileset.image;
+                updated = true;
+                console.log(`   🔄 Convertida URL relativa em ${tileset.name}: ${tileset.image}`);
+              }
             }
           });
         }
         
+        // Criar diretório de destino se não existir
+        const destDir = path.dirname(distPath);
+        if (!fs.existsSync(destDir)) {
+          fs.mkdirSync(destDir, { recursive: true });
+        }
+        
+        // Salvar arquivo processado
+        fs.writeFileSync(distPath, JSON.stringify(mapData, null, 2));
         if (updated) {
-          fs.writeFileSync(distPath, JSON.stringify(mapData, null, 2));
-          console.log(`✅ URLs convertidas em: ${file}`);
+          console.log(`✅ Processado e URLs convertidas: ${file}`);
+        } else {
+          console.log(`✅ Copiado (sem alterações): ${file}`);
         }
       } catch (error) {
-        console.log(`⚠️  Erro ao processar ${file}: ${error.message}`);
+        console.log(`❌ Erro ao processar ${file}: ${error.message}`);
       }
+    } else {
+      console.log(`⚠️  Arquivo não encontrado: ${file}`);
     }
   }
 });
