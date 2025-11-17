@@ -14,6 +14,21 @@
   "nextobjectid": 15,
   "properties": [
     {
+      "name": "mapCopyright",
+      "type": "string",
+      "value": "Credits: AR Online (https://workadventu.re) \nLicense: CC-BY-SA 3.0"
+    },
+    {
+      "name": "mapDescription",
+      "type": "string",
+      "value": "Virtual Office da AR Online - Escritório Virtual Profissional"
+    },
+    {
+      "name": "mapImage",
+      "type": "string",
+      "value": "office.png"
+    },
+    {
       "name": "mapName",
       "type": "string",
       "value": "AR Online Virtual Office"
