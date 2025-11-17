@@ -86,8 +86,8 @@ function copyDirectory(source, dest) {
   });
 }
 
-// Processar arquivos .tmj: copiar e converter URLs relativas para absolutas
-console.log('🔄 Processando arquivos .tmj (copiar e converter URLs)...');
+// Processar arquivos .tmj: copiar e garantir URLs relativas (WorkAdventure resolve automaticamente)
+console.log('🔄 Processando arquivos .tmj (manter URLs relativas)...');
 const baseUrl = 'https://lourealiza.github.io/wa-aronline-office/';
 
 essentialFiles.forEach(file => {
@@ -97,7 +97,7 @@ essentialFiles.forEach(file => {
     
     if (fs.existsSync(sourcePath)) {
       try {
-        // Ler arquivo fonte (deve ter URLs relativas)
+        // Ler arquivo fonte
         const content = fs.readFileSync(sourcePath, 'utf8');
         const mapData = JSON.parse(content);
         let updated = false;
@@ -105,26 +105,27 @@ essentialFiles.forEach(file => {
         if (mapData.tilesets && Array.isArray(mapData.tilesets)) {
           mapData.tilesets.forEach(tileset => {
             if (tileset.image) {
-              // Se já é URL absoluta, remover baseUrl duplicada se existir
+              // Se já é URL absoluta, converter para relativa
               if (tileset.image.startsWith('http://') || tileset.image.startsWith('https://')) {
                 // Verificar se há duplicação da baseUrl
                 const doubleBaseUrl = baseUrl + baseUrl;
                 if (tileset.image.startsWith(doubleBaseUrl)) {
-                  tileset.image = tileset.image.replace(doubleBaseUrl, baseUrl);
+                  // Remover duplicação e converter para relativa
+                  tileset.image = tileset.image.replace(doubleBaseUrl, '');
                   updated = true;
-                  console.log(`   🔧 Corrigida URL duplicada em ${tileset.name}`);
+                  console.log(`   🔧 Corrigida URL duplicada e convertida para relativa em ${tileset.name}`);
                 } else if (tileset.image.startsWith(baseUrl)) {
-                  // Já está correto, não fazer nada
-                  console.log(`   ℹ️  URL já é absoluta em ${tileset.name}`);
+                  // Converter URL absoluta para relativa (WorkAdventure resolve automaticamente)
+                  tileset.image = tileset.image.replace(baseUrl, '');
+                  updated = true;
+                  console.log(`   🔄 Convertida URL absoluta para relativa em ${tileset.name}: ${tileset.image}`);
                 } else {
-                  // URL absoluta de outro domínio, manter como está
-                  console.log(`   ℹ️  URL absoluta externa em ${tileset.name}`);
+                  // URL absoluta de outro domínio - manter como está (não é nosso domínio)
+                  console.log(`   ℹ️  Mantida URL absoluta externa em ${tileset.name}`);
                 }
               } else {
-                // URL relativa - converter para absoluta
-                tileset.image = baseUrl + tileset.image;
-                updated = true;
-                console.log(`   🔄 Convertida URL relativa em ${tileset.name}: ${tileset.image}`);
+                // URL já é relativa - manter como está
+                console.log(`   ✅ URL já é relativa em ${tileset.name}: ${tileset.image}`);
               }
             }
           });
@@ -139,9 +140,9 @@ essentialFiles.forEach(file => {
         // Salvar arquivo processado
         fs.writeFileSync(distPath, JSON.stringify(mapData, null, 2));
         if (updated) {
-          console.log(`✅ Processado e URLs convertidas: ${file}`);
+          console.log(`✅ Processado e URLs corrigidas: ${file}`);
         } else {
-          console.log(`✅ Copiado (sem alterações): ${file}`);
+          console.log(`✅ Copiado (sem alterações necessárias): ${file}`);
         }
       } catch (error) {
         console.log(`❌ Erro ao processar ${file}: ${error.message}`);
